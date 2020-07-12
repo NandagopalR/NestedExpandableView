@@ -7,6 +7,7 @@ public class DesignationModel {
     private String designationId;
     private String designation;
     private List<EmployeeModel> employeeModelList;
+    private boolean isExpanded;
 
     public DesignationModel(String designationId, String designation, List<EmployeeModel> employeeModelList) {
         this.designationId = designationId;
@@ -36,5 +37,13 @@ public class DesignationModel {
 
     public void setEmployeeModelList(List<EmployeeModel> employeeModelList) {
         this.employeeModelList = employeeModelList;
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
     }
 }

@@ -8,6 +8,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.nanda.nestedexpandablerecyclerview.R;
 import com.nanda.nestedexpandablerecyclerview.data.model.CompanyModel;
 import com.nanda.nestedexpandablerecyclerview.data.model.DesignationModel;
@@ -89,32 +92,42 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_desig, parent, false);
         }
 
         DesignationModel designationModel = (DesignationModel) getChild(groupPosition, childPosition);
+        EmployeeAdapter employeeAdapter = new EmployeeAdapter();
+
         final ExpandableLayout expandableLayout = convertView.findViewById(R.id.expandable_layout);
         FrameLayout layoutHeader = convertView.findViewById(R.id.layout_first_child);
-        convertView.setTag(childPosition);
-        expandableLayout.setTag(childPosition);
-        layoutHeader.setTag(childPosition);
         TextView tvName = convertView.findViewById(R.id.tv_name);
+        RecyclerView recyclerView = convertView.findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
+        String tag = groupPosition + "" + childPosition;
+        convertView.setTag(tag);
+        expandableLayout.setTag(tag);
+        layoutHeader.setTag(tag);
+        recyclerView.setTag(tag);
+        recyclerView.setAdapter(employeeAdapter);
         tvName.setText(designationModel.getDesignation());
+
+        final boolean isExpanded = designationModel.isExpanded();
+        if (isExpanded) {
+            employeeAdapter.setEmployeeModelList(designationModel.getEmployeeModelList());
+        }
+        expandableLayout.setExpanded(isExpanded, true);
+
         layoutHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                expandableLayout.setExpanded(!expandableLayout.isExpanded(), false);
-//                if (expandableLayout.isExpanded()) {
-//                    Toast.makeText(context, "True", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(context, "False", Toast.LENGTH_SHORT).show();
-//                }
+                DesignationModel designationModel = (DesignationModel) getChild(groupPosition, childPosition);
+                designationModel.setExpanded(!isExpanded);
+                notifyDataSetChanged();
             }
         });
-//        expandableLayout.setExpanded(true, false);
         return convertView;
     }
 }
