@@ -13,7 +13,7 @@ import com.nanda.nestedexpandablerecyclerview.data.model.CompanyModel;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements ExpandableListView.OnGroupExpandListener, ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener {
+public class MainActivity extends AppCompatActivity implements ExpandableListView.OnGroupClickListener {
 
     private ExpandableListView expandableListView;
 
@@ -28,20 +28,9 @@ public class MainActivity extends AppCompatActivity implements ExpandableListVie
         expandableListView = findViewById(R.id.expandableListView);
         expandableListView.setAdapter(adapter);
         adapter.setCompanyModelList(companyModelList);
-        expandableListView.setOnGroupExpandListener(this);
         expandableListView.setOnGroupClickListener(this);
-        expandableListView.setOnChildClickListener(this);
     }
 
-    @Override
-    public void onGroupExpand(int groupPosition) {
-
-    }
-
-    @Override
-    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-        return true;
-    }
 
     @Override
     public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {

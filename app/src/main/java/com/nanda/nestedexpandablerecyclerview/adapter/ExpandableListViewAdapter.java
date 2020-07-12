@@ -132,7 +132,19 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 DesignationModel designationModel = (DesignationModel) getChild(groupPosition, childPosition);
-                designationModel.setExpanded(!isExpanded);
+                if (designationModel.isExpanded()) {
+                    designationModel.setExpanded(false);
+                } else {
+                    List<DesignationModel> designationModelList = companyModelList.get(groupPosition).getDesignationModelList();
+                    for (int i = 0, size = designationModelList.size(); i < size; i++) {
+                        DesignationModel model = designationModelList.get(i);
+                        if (i == childPosition) {
+                            model.setExpanded(true);
+                        } else {
+                            model.setExpanded(false);
+                        }
+                    }
+                }
                 notifyDataSetChanged();
             }
         });
