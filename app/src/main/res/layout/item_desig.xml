@@ -25,11 +25,11 @@
                 android:textColor="@android:color/black" />
 
             <ImageView
-                android:id="@+id/toggle_btn"
+                android:id="@+id/img_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:background="@drawable/ic_expand" />
+                android:src="@drawable/ic_arrow_down" />
         </FrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView

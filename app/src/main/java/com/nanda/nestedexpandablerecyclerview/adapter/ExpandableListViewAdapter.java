@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -87,7 +88,11 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         convertView.setTag(groupPosition);
         CompanyModel companyModel = (CompanyModel) getGroup(groupPosition);
         TextView tvName = convertView.findViewById(R.id.tv_name);
+        ImageView imgArrow = convertView.findViewById(R.id.img_arrow);
+        imgArrow.setTag(groupPosition);
+
         tvName.setText(companyModel.getCompanyName());
+        imgArrow.setImageResource(isExpanded ? R.drawable.ic_arrow_up : R.drawable.ic_arrow_down);
         return convertView;
     }
 
@@ -103,6 +108,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         final ExpandableLayout expandableLayout = convertView.findViewById(R.id.expandable_layout);
         FrameLayout layoutHeader = convertView.findViewById(R.id.layout_first_child);
         TextView tvName = convertView.findViewById(R.id.tv_name);
+        ImageView imgArrow = convertView.findViewById(R.id.img_arrow);
         RecyclerView recyclerView = convertView.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
@@ -110,6 +116,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         convertView.setTag(tag);
         expandableLayout.setTag(tag);
         layoutHeader.setTag(tag);
+        imgArrow.setTag(tag);
         recyclerView.setTag(tag);
         recyclerView.setAdapter(employeeAdapter);
         tvName.setText(designationModel.getDesignation());
@@ -118,6 +125,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         if (isExpanded) {
             employeeAdapter.setEmployeeModelList(designationModel.getEmployeeModelList());
         }
+        imgArrow.setImageResource(isExpanded ? R.drawable.ic_arrow_up : R.drawable.ic_arrow_down);
         expandableLayout.setExpanded(isExpanded, true);
 
         layoutHeader.setOnClickListener(new View.OnClickListener() {

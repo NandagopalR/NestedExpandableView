@@ -3,7 +3,6 @@ package com.nanda.nestedexpandablerecyclerview.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -52,12 +51,10 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
     class EmployeeViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvName;
-        private ImageButton btnToggle;
 
         public EmployeeViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
-            btnToggle = itemView.findViewById(R.id.toggle_btn);
         }
 
         void bindDataToView(EmployeeModel model) {
